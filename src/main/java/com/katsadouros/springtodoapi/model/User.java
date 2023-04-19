@@ -4,6 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
+
+/**
+ * This class represents a User in a ToDo platform.
+ */
+
 @Entity
 @Table(name = "todo_user")
 public class User {
@@ -19,6 +24,4 @@ public class User {
     @Column(name = "email")
     @Email
     private String email;
-
-
 }
