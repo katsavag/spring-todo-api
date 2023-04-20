@@ -3,6 +3,9 @@ package com.katsadouros.springtodoapi.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -10,18 +13,26 @@ import jakarta.validation.constraints.Pattern;
  */
 
 @Entity
-@Table(name = "todo_user")
+@Table(name = "TODO_USER")
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
+
+    public User(String username, String email){
+        this.username = username;
+        this.email = email;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     @Pattern(regexp = "^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")
     private String username;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @Email
     private String email;
 }
