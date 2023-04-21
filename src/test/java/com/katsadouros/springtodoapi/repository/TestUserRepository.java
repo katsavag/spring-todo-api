@@ -1,6 +1,7 @@
 package com.katsadouros.springtodoapi.repository;
 
 import com.katsadouros.springtodoapi.model.User;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,13 +48,20 @@ public class TestUserRepository {
 
     @Test
     void testUserCreation() {
-        User user = new User("testUse**r", "test@test.com");
+        User user = new User("testUser", "test@test.com");
 
         user = userRepository.save(user);
 
         Assertions.assertNotNull(user);
         Assertions.assertEquals(1L, user.getId());
 
+    }
+
+    @Test
+    void testInvalidUsername() {
+        User user = new User("testUs**er", "test@test.com");
+
+        Assertions.assertThrows(ConstraintViolationException.class, ()->userRepository.save(user));
     }
 
     @Test
